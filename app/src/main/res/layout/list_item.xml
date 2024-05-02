@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBottomSheetDataUser" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btnDeleteExercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -79,6 +79,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
+
+            <ImageButton
+                android:id="@+id/btnEditExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteExercise"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnEditExercise"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package br.com.gymproject.ui
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,16 +24,26 @@ class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.bottom_sheet_item, viewGroup, false)
+            .inflate(R.layout.list_item, viewGroup, false)
 
         return ViewHolder(view)
+    }
+
+    private fun goToEditExercise(context: Context, position: Int){
+        val intent = Intent(context, AddExerciseActivity::class.java)
+        intent.putExtra("nome", dataset[position]?.name.toString())
+        intent.putExtra("descricao", dataset[position]?.description.toString())
+        intent.putExtra("id", dataset[position]?.id.toString())
+        intent.putExtra("image", dataset[position]?.image.toString())
+        intent.putExtra("documentId", dataset[position]?.documentId.toString())
+        context.startActivity(intent)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.let {
             it.txtBottomSheetDataUser.text = dataset[position]?.name.plus(" ")
             it.txtBottomSheetDescriptionUser.text = dataset[position]?.description.plus("")
-            it.itemView.findViewById<ImageButton>(R.id.imageButton).setOnClickListener {
+            it.itemView.findViewById<ImageButton>(R.id.btnDeleteExercise).setOnClickListener {
                 val builder = AlertDialog.Builder(it.context)
                 // Get the layout inflater
                 val inflater = LayoutInflater.from(it.context)
@@ -60,6 +72,9 @@ class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
                             dialog.dismiss()
                         }
                 }
+            }
+            it.itemView.findViewById<ImageButton>(R.id.btnEditExercise).setOnClickListener {
+                goToEditExercise(it.context, position)
             }
         }
     }

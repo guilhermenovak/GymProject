@@ -7,7 +7,7 @@
     tools:context=".ui.AddExerciseActivity">
 
     <ImageView
-        android:id="@+id/imgAdd"
+        android:id="@+id/imgEdit"
         android:scaleType="center"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/academy" />
 
     <Button
-        android:id="@+id/btnImage"
+        android:id="@+id/btnImageEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtObservations" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/textView23"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -61,10 +61,10 @@
         android:hint="Digite as observações do exercício"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/textView24"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
         android:paddingStart="27dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/imgEdit" />
 
     <EditText
         android:id="@+id/txtName"
@@ -85,10 +85,10 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Digite o nome do treino"
+        android:hint="Digite o nome do exercício"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <Button
         android:id="@+id/btnCadastrar"
@@ -101,5 +101,5 @@
         android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnImage" />
+        app:layout_constraintTop_toBottomOf="@+id/btnImageEdit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

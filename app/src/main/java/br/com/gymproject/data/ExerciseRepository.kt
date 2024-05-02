@@ -9,6 +9,8 @@ class ExerciseRepository {
 
     fun insertExercise(exercise: Exercise) = exerciseRemoteDataSource.insertExercise(exercise)
 
+    fun updateExercise(exercise: Exercise) = exerciseRemoteDataSource.updateExercise(exercise)
+
     fun getAllExercises(myCallback: (result: MutableList<Exercise>) -> Unit) = exerciseRemoteDataSource.getAllExercises(myCallback)
 
 }

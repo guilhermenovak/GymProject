@@ -32,6 +32,17 @@ class ExerciseRemoteDataSource {
             }
 }
 
+    fun updateExercise(exercises: Exercise) {
+        val reference = db.collection("exercise").document(exercises.documentId)
+        reference
+            .update(
+                "Name", exercises.name,
+                "Description", exercises.description
+            )
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+    }
+
     fun getAllExercises(myCallback: (result: MutableList<Exercise>) -> Unit) {
         db.collection("exercise")
             .get()
