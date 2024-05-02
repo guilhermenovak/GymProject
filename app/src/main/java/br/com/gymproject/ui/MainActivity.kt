@@ -33,5 +33,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ExercisesListActivity::class.java)
             startActivity(intent)
         }
+        binding.cardViewWorkouts.setOnClickListener {
+            val intent = Intent(this, ManageWorkoutsActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -3,7 +3,6 @@ package br.com.gymproject.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,8 +10,6 @@ import br.com.gymproject.data.ExerciseRepository
 import br.com.gymproject.data.local.database.Exercise
 import br.com.gymproject.databinding.ActivityExercisesListBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class ExercisesListActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -45,8 +42,9 @@ class ExercisesListActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setAdapter(exercises: List<Exercise?>){
-        val adapter = ExerciseBottomSheetAdapter(exercises as MutableList<Exercise?>)
+        val adapter = ExerciseAdapter(exercises as MutableList<Exercise?>)
         binding.listAllExercises.adapter = adapter
         binding.listAllExercises.layoutManager = LinearLayoutManager(this)
     }

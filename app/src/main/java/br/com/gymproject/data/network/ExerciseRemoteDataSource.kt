@@ -3,15 +3,8 @@ package br.com.gymproject.data.network
 
 import android.util.Log
 import br.com.gymproject.data.local.database.Exercise
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.map
 
 class ExerciseRemoteDataSource {
     val TAG = "FIRESTORE"
@@ -25,7 +18,8 @@ class ExerciseRemoteDataSource {
             "Id" to exercises.id,
             "Name" to exercises.name,
             "Description" to exercises.description,
-            "Image" to exercises.image
+            "Image" to exercises.image,
+            "DocumentId" to id
         )
         reference
             .document(id)
@@ -50,7 +44,8 @@ class ExerciseRemoteDataSource {
                         document.get("Id") as Long,
                         document.get("Name").toString(),
                         document.get("Description").toString(),
-                            document.get("Image").toString()
+                            document.get("Image").toString(),
+                            document.get("DocumentId").toString()
                     ))
                 }
                 myCallback.invoke(allExercises)
@@ -58,20 +53,6 @@ class ExerciseRemoteDataSource {
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
             }
-    }
-
-    private fun Query.snapshotFlow(): Flow<QuerySnapshot> = callbackFlow {
-        val listenerRegistration = addSnapshotListener { value, error ->
-            if (error != null) {
-                close()
-                return@addSnapshotListener
-            }
-            if (value != null)
-                trySend(value)
-        }
-        awaitClose {
-            listenerRegistration.remove()
-        }
     }
 
 }
