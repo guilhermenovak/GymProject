@@ -12,38 +12,39 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.gymproject.R
-import br.com.gymproject.data.local.database.Exercise
+import br.com.gymproject.data.local.database.Workout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
-    RecyclerView.Adapter<ExerciseAdapter.ViewHolder>() {
+class WorkoutAdapter(private var dataset: MutableList<Workout?>) :
+    RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
     val TAG = "FIRESTORE"
 
     private val db = Firebase.firestore
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_item, viewGroup, false)
+            .inflate(R.layout.list_item_workout, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     private fun goToEditExercise(context: Context, position: Int){
-        val intent = Intent(context, AddExerciseActivity::class.java)
+        val intent = Intent(context, AddWorkoutActivity::class.java)
         intent.putExtra("nome", dataset[position]?.name.toString())
-        intent.putExtra("observacao", dataset[position]?.observation.toString())
+        intent.putExtra("descricao", dataset[position]?.description.toString())
         intent.putExtra("id", dataset[position]?.id.toString())
-        intent.putExtra("image", dataset[position]?.image.toString())
+        intent.putExtra("data", dataset[position]?.data.toString())
         intent.putExtra("documentId", dataset[position]?.documentId.toString())
         context.startActivity(intent)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.let {
-            it.txtNameList.text = dataset[position]?.name.plus(" ")
-            it.txtObservationList.text = dataset[position]?.observation.plus("")
-            it.itemView.findViewById<ImageButton>(R.id.btnDeleteExercise).setOnClickListener {
+            it.txtNameWorkoutList.text = dataset[position]?.name.plus(" ")
+            it.txtDescriptionList.text = dataset[position]?.description.plus("")
+            it.txtDataList.text = dataset[position]?.data.plus("")
+            it.itemView.findViewById<ImageButton>(R.id.btnDeleteWorkout).setOnClickListener {
                 val builder = AlertDialog.Builder(it.context)
                 // Get the layout inflater
                 val inflater = LayoutInflater.from(it.context)
@@ -58,7 +59,7 @@ class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
                     dialog.dismiss()
                 }
                 dialogView.findViewById<Button>(R.id.btnExcluir).setOnClickListener{
-                    db.collection("exercise").document(dataset[position]?.documentId.toString())
+                    db.collection("workout").document(dataset[position]?.documentId.toString())
                         .delete()
                         .addOnSuccessListener {
                             Log.d(TAG, "DocumentSnapshot successfully deleted!")
@@ -73,7 +74,7 @@ class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
                         }
                 }
             }
-            it.itemView.findViewById<ImageButton>(R.id.btnEditExercise).setOnClickListener {
+            it.itemView.findViewById<ImageButton>(R.id.btnEditWorkout).setOnClickListener {
                 goToEditExercise(it.context, position)
             }
         }
@@ -84,13 +85,15 @@ class ExerciseAdapter(private var dataset: MutableList<Exercise?>) :
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtNameList: TextView
-        val txtObservationList: TextView
+        val txtNameWorkoutList: TextView
+        val txtDescriptionList: TextView
+        val txtDataList: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
-            txtNameList = view.findViewById(R.id.txtNameList)
-            txtObservationList = view.findViewById(R.id.txtObservationList)
+            txtNameWorkoutList = view.findViewById(R.id.txtNameWorkoutList)
+            txtDescriptionList = view.findViewById(R.id.txtDescriptionList)
+            txtDataList = view.findViewById(R.id.txtDataList)
         }
     }
 }

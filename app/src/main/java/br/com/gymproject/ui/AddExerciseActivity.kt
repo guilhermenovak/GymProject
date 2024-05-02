@@ -38,15 +38,15 @@ class AddExerciseActivity : AppCompatActivity() {
         binding = ActivityAddExerciseBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        var nome = intent.getStringExtra("nome").toString()
-        var descricao = intent.getStringExtra("descricao").toString()
+        var nome = intent.getStringExtra("nome").orEmpty()
+        var observacao = intent.getStringExtra("observacao").orEmpty()
         var id = intent.getStringExtra("id")?.toLong()
-        var imagem = intent.getStringExtra("image").toString()
-        var documentId = intent.getStringExtra("documentId").toString()
+        var imagem = intent.getStringExtra("image").orEmpty()
+        var documentId = intent.getStringExtra("documentId").orEmpty()
         val isEdit = !nome.isEmpty()
         if (isEdit){
             binding.txtName.setText(nome)
-            binding.txtObservations.setText(descricao)
+            binding.txtObservations.setText(observacao)
         }
 
         binding.btnImageEdit.setOnClickListener {
@@ -58,14 +58,10 @@ class AddExerciseActivity : AppCompatActivity() {
                 if (exercises != null) {
                     exerciseRepository.updateExercise(exercises)
                 }
-                val intent = Intent(this, ExercisesListActivity::class.java)
-                startActivity(intent)
                 finish()
             } else {
                 val exercises = buildExercise()
                 exerciseRepository.insertExercise(exercises)
-                val intent = Intent(this, ExercisesListActivity::class.java)
-                startActivity(intent)
                 finish()
             }
             }

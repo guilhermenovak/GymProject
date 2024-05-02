@@ -6,28 +6,28 @@ import com.google.errorprone.annotations.Keep
 import com.google.firebase.firestore.PropertyName
 
 @Keep
-data class Exercise(
+data class Workout(
     @get: PropertyName("Id") @set: PropertyName("Id") var id: Long,
     @get: PropertyName("Name") @set: PropertyName("Name") var name: String = "",
-    @get: PropertyName("Obersation") @set: PropertyName("Observation") var observation: String = "",
-    @get: PropertyName("Image") @set: PropertyName("Image") var image: String = "",
+    @get: PropertyName("Description") @set: PropertyName("Description") var description: String = "",
+    @get: PropertyName("Data") @set: PropertyName("Data") var data: String = "",
     @get: PropertyName("DocumentId") @set: PropertyName("DocumentId") var documentId: String = "",
 )
 
-@Entity(tableName = "exercise")
-data class ExerciseEntity(
+@Entity(tableName = "workout")
+data class WorkoutEntity(
     @PrimaryKey
     val id: Long,
     val name: String,
-    val observation: String,
-    val image : String,
+    val description: String,
+    val data : String,
     val documentId: String
 )
 
-fun ExerciseEntity.asExternalModel() = Exercise(
+fun WorkoutEntity.asExternalModel() = Workout(
     id = id,
     name = name,
-    observation = observation,
-    image = image,
+    description = description,
+    data = data,
     documentId = documentId
 )

@@ -2,64 +2,64 @@ package br.com.gymproject.data.network
 
 
 import android.util.Log
-import br.com.gymproject.data.local.database.Exercise
+import br.com.gymproject.data.local.database.Workout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ExerciseRemoteDataSource {
+class WorkoutRemoteDataSource {
     val TAG = "FIRESTORE"
 
     private val db = Firebase.firestore
 
-    fun insertExercise(exercises : Exercise) {
-        val reference = db.collection("exercise")
+    fun insertWorkout(workout : Workout) {
+        val reference = db.collection("workout")
         val id = reference.document().id
-        val mappedExercises = hashMapOf(
-            "Id" to exercises.id,
-            "Name" to exercises.name,
-            "Observation" to exercises.observation,
-            "Image" to exercises.image,
+        val mappedWorkouts = hashMapOf(
+            "Id" to workout.id,
+            "Name" to workout.name,
+            "Descricao" to workout.description,
+            "Image" to workout.data,
             "DocumentId" to id
         )
         reference
             .document(id)
-            .set(mappedExercises)
+            .set(mappedWorkouts)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.toString()}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
             }
-}
+    }
 
-    fun updateExercise(exercises: Exercise) {
-        val reference = db.collection("exercise").document(exercises.documentId)
+    fun updateWorkout(workout: Workout) {
+        val reference = db.collection("workout").document(workout.documentId)
         reference
             .update(
-                "Name", exercises.name,
-                "Observation", exercises.observation
+                "Name", workout.name,
+                "Descricao", workout.description
             )
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
     }
 
-    fun getAllExercises(myCallback: (result: MutableList<Exercise>) -> Unit) {
-        db.collection("exercise")
+    fun getAllWorkouts(myCallback: (result: MutableList<Workout>) -> Unit) {
+        db.collection("workout")
             .get()
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.toString()}")
-                val allExercises = mutableListOf<Exercise>()
+                val allWorkouts = mutableListOf<Workout>()
                 for (document in documentReference) {
-                    allExercises.add(
-                        Exercise(
-                        document.get("Id") as Long,
-                        document.get("Name").toString(),
-                        document.get("Observation").toString(),
-                            document.get("Image").toString(),
+                    allWorkouts.add(
+                        Workout(
+                            document.get("Id") as Long,
+                            document.get("Name").toString(),
+                            document.get("Descricao").toString(),
+                            document.get("Data").toString(),
                             document.get("DocumentId").toString()
-                    ))
+                        ))
                 }
-                myCallback.invoke(allExercises)
+                myCallback.invoke(allWorkouts)
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
